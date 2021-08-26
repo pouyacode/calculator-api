@@ -1,0 +1,74 @@
+# calculator-api
+Create a simple Calculator REST API using JSON that supports input of mathematical expressions with the basic operations: `+`, `-`, `*`, and `/`. It should allow the usage of parens and understand operator precedence.
+
+Example:
+POST /calc `{"expression": "-1 * (2 * 6 / 3)"}`
+Returns `{"result": "-4"}`
+
+Extra credits for the ability to retrieve history of calculations done.
+
+
+## Getting Started
+1. Start the application: `lein run`
+2. Go to [localhost:8080](http://localhost:8080/) to see the web interface for the calculator.
+3. Read the app's source code at [localhost:8080/docs](http://localhost:8080/docs.
+4. Run the app's tests with `lein test`. Read the tests at test/calculator_api/calculator_test.clj.
+
+
+## Configuration
+To configure logging see config/logback.xml. By default, the app logs to stdout and logs/.
+To learn more about configuring Logback, read its [documentation](http://logback.qos.ch/documentation.html).
+
+## Installation
+If you received `calculator-api-0.0.1-SNAPSHOT-standalone.jar`, skip this step and just run `java -jar filename.jar`.
+It should run without any dependency issues. Everything is "statically compiled" inside the `jar` file. Including `antlr` library and its parser.
+
+
+### Install Antlr4
+We need to install [antlr-4.9.2](https://www.antlr.org) to compile Grammer and generate parser.
+```
+$ cd /usr/local/lib
+$ sudo mkdir antlr4
+$ sudo chown <username>:<username> antlr4
+$ cd antlr4
+$ sudo curl -O https://www.antlr.org/download/antlr-4.9.2-complete.jar
+
+$ export CLASSPATH=".:/usr/local/lib/antlr4/antlr-4.9.2-complete.jar:$CLASSPATH"
+$ alias antlr4='java -jar /usr/local/lib/antlr-4.9.2-complete.jar'
+$ alias grun='java org.antlr.v4.gui.TestRig'
+```
+
+
+### Compile Grammer
+```
+cd src/java/grammer
+antlr4 -package grammar.expr -no-listener -visitor Expr.g4
+```
+
+
+### Generate docs
+```
+$ lein marg -f ../resources/index.html
+```
+
+
+## Developing your service
+1. Start a new REPL: `lein repl`
+2. Start your service in dev-mode: `(def dev-serv (run-dev))`
+3. Connect your editor to the running REPL session.
+   Re-evaluated code will be seen immediately in the service.
+
+
+### [Docker](https://www.docker.com/) container support
+1. Configure your service to accept incoming connections (edit service.clj and add  ::http/host "0.0.0.0" )
+2. Build an uberjar of your service: `lein do clean, marg -f ../resources/index.html, uberjar`
+3. Build a Docker image: `sudo docker build -t calculator-api .`
+4. Run your Docker image: `docker run -p 8080:8080 calculator-api`
+
+
+### [OSv](http://osv.io/) unikernel support with [Capstan](http://osv.io/capstan/)
+1. Build and run your image: `capstan run -f "8080:8080"`
+
+
+Once the image it built, it's cached.  To delete the image and build a new one:
+1. `capstan rmi calculator-api; capstan build`
