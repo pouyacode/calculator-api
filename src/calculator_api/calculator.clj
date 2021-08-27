@@ -26,7 +26,8 @@
 ;;; basic mathematical operations and of course "white-space".
 ;;; 
 ;;; It doesn't allow expressions that start with `*`, `/`, `+`.
-(spec/def ::valid-expression #(re-matches #"(?=[^+*/])[\+\-\*\/\d\(\)\ ]+" %))
+(spec/def ::valid-expression #(re-matches #"(?=[^+*/])[+\-*/\d() Ee.]+" %))
+
 
 (defn valid?
   "Simple regex validator that only lets digits and basic operations pass.
