@@ -77,7 +77,7 @@ lein do clean, marg, uberjar
 
 ### [Docker](https://www.docker.com/) container support
 1. Configure your service to accept incoming connections (edit service.clj and add  ::http/host "0.0.0.0" )
-2. Build an uberjar of your service: `lein do clean, marg -f ../resources/index.html, uberjar`
+2. Build an uberjar of your service: `lein do clean, marg, uberjar`
 3. Build a Docker image: `sudo docker build -t calculator-api .`
 4. Run your Docker image: `docker run -p 8080:8080 calculator-api`
 
