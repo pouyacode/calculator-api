@@ -107,10 +107,15 @@
   When you give it a `list` it extracts the first element of that list and
   assigns it to `arg1`, after parsing it using `clean-arg` function, sends
   it to `apply-arg` with the partitioned version of \"the rest of the list\"
-  (`ops-and-args`)."
+  (`ops-and-args`).
+
+  If the provided input is just a negative value `(- 1234)`, return it without
+  passing through `apply-arg`. Because `apply-arg` looks for a `seq` of three."
   [[arg1 & ops-and-args]]
-  (let [ops (partition 2 ops-and-args)]
-    (reduce apply-arg (clean-arg arg1) ops)))
+  (if (= 1 (count ops-and-args))        ; Check for something like `(- 5)`
+    (list arg1 (clean-arg ops-and-args)) ; And return it as-is
+    (let [ops (partition 2 ops-and-args)]
+      (reduce apply-arg (clean-arg arg1) ops))))
 
 
 (defn prepare
@@ -126,10 +131,8 @@
       (-> tree
           (.toStringTree pars)
           read-string
-          (clojure.string/replace #"prog|stat|expr" "")
-          read-string
-          first
-          first))
+          (clojure.string/replace #"prog|expr" "")
+          read-string))
     nil))
 
 
@@ -169,16 +172,3 @@
     {:parsed (str parsed)
      :sexp (str (inline parsed))}
     {:error "not valid"}))
-
-
-
-(defn prepare2
-  [expression]
-  (if (valid? expression)
-    (let [pars (parser expression)
-          tree (.prog pars)]
-      (-> tree
-          (.toStringTree pars)
-          read-string
-          (clojure.string/replace #"prog|stat|expr" "")))
-    nil))

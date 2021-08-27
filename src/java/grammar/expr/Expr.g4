@@ -1,23 +1,14 @@
 grammar Expr;
 
 /** The start rule; begin parsing here. */
-prog:   stat+ ;
-
-stat:   expr
-    ;
+prog:   expr+ ;
 
 expr:   expr ('*'|'/') expr	# MulDiv
     |   expr ('+'|'-') expr	# AddSub
-    |   INT  	       		# int
-    |   NEG     		# negative
+    |   NUM  	       		# int
+    |   '-' NUM			# neg
     |   '(' expr ')'		# parens
     ;
 
-MUL :   '*' ; // assigns token name to '*' used above in grammar
-DIV :   '/' ;
-ADD :   '+' ;
-SUB :   '-' ;
-INT :   [0-9]+ ;         // match integers
-NEG :   ~[)(0-9 ]'-'[0-9]+ ;	 // match negative
-NEWLINE:'\r'? '\n' ;     // return newlines to parser (is end-statement signal)
+NUM :   [0-9]+ ('.' [0-9]+)? ([eE] [+-]? [0-9]+)? ;
 WS  :   [ \t]+ -> skip ; // toss out whitespace
