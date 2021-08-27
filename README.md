@@ -39,16 +39,32 @@ $ alias grun='java org.antlr.v4.gui.TestRig'
 ```
 
 
-### Compile Grammer
+### Compile Grammar
 ```
 cd src/java/grammer
+rm *.java *.tokens *.interp *.class # remove what's left over from testing the grammar
 antlr4 -package grammar.expr -no-listener -visitor Expr.g4
 ```
+
+#### Test Grammar
+```
+cd src/java/grammer
+rm *.java *.tokens *.interp # remove what's left over from compiling the grammar
+antlr4 Expr.g4 && javac *.java
+grun Expr prog -gui <file-with-expressions> # GUI
+grun Expr prog -tree <file-with-expressions> # Text-based
+```
+If you don't supply any file, you can type your expression directly, then press `ctrl+d` to get the result.
 
 
 ### Generate docs
 ```
-$ lein marg -f ../resources/index.html
+$ lein marg
+```
+
+### Compile everything
+```
+lein do clean, marg, uberjar
 ```
 
 

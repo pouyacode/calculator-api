@@ -36,3 +36,11 @@ repl-port
 out/
 build/
 
+# Antlr
+src/java/grammar/expr/*.interp
+src/java/grammar/expr/*.tokens
+src/java/grammar/expr/*.java
+src/java/grammar/expr/*.class
+
+# Docs
+docs

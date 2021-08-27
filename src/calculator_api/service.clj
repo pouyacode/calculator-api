@@ -23,12 +23,21 @@
                        "<!DOCTYPE html>"
                        [:html {:lang "en"}
                         [:head
+                         [:meta {:charset "utf-8"}]
                          [:title "Calculator API"]
                          [:meta {:name "description" :content "Basic arithmetic calculator, using Antlr4."}]
+                         [:meta {:name "viewport" :content "width=device-width,minimum-scale=1,initial-scale=1"}]
                          [:link {:rel "stylesheet" :href "/style/dark.min.css"}]
                          [:script {:src "/script/main.js" :defer "true"}]
                          [:script {:src "/script/highlight.min.js" :defer "true"}]
-                         [:link {:rel "icon" :type "image/svg+xml" :href "/favicon.svg"}]]
+                         [:link {:rel "icon" :type "image/svg+xml" :href "/favicon.svg"}]
+                         [:meta {:property "og:locale" :content "en_GB"}]
+                         [:meta {:property "og:type" :content "website"}]
+                         [:meta {:property "og:title" :content "Calculator API"}]
+                         [:meta {:property "og:description" :content "Calculator RESTful API, written in clojure, using Antlr4 parser generator."}]
+                         [:meta {:property "og:url" :content "https://ardoq.pouyacode.net"}]
+                         [:meta {:property "og:image" :content "https://ardoq.pouyacode.net/calculator.png"}]
+                         [:meta {:property "og:site_name" :content "Calculator API"}]]
                         [:body
                          [:div#outer
                           [:div.container
@@ -55,11 +64,10 @@
   https://github.com/gdeer81/marginalia. And serve it in /docs. It looks like
   Literate Programming!
   
-  Use `lein marg -f ../resources/index.html` to update the documents whenever
+  Use `lein marg` to update the documents whenever
   you changed some code or comment."
   [_]
-  (ring-resp/response (slurp "resources/index.html")))
-
+  (ring-resp/response (slurp (clojure.java.io/resource "uberdoc.html"))))
 
 (defn de-json
   "Extracts `json` part of the request. Returns `nil` if `content-type` isn't
