@@ -44,3 +44,10 @@ src/java/grammar/expr/*.class
 
 # Docs
 docs
+
+# front-end
+resources/public/js/compiled/
+front-end/*-init.clj
+front-end/*.log
+node_modules/
+.shadow-cljs/
