@@ -11,13 +11,6 @@
    (:active-panel db)))
 
 
-;;; Get the expression user has typed in the input element.
-(re-frame/reg-sub
- ::expression
- (fn [db _]
-   (:expression db)))
-
-
 ;;; Result of calculations, sent from back-end.
 (re-frame/reg-sub
  ::result

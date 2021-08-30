@@ -51,3 +51,7 @@ front-end/*-init.clj
 front-end/*.log
 node_modules/
 .shadow-cljs/
+
+# sass
+resources/public/vendor/css/style.min.css
+resources/public/vendor/css/style.min.css.map

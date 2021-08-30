@@ -8,14 +8,12 @@
 ;; home
 
 (defn home-title []
-  (let [expression @(re-frame/subscribe [::subs/expression])
-        result @(re-frame/subscribe [::subs/result])]
+  (let [result @(re-frame/subscribe [::subs/result])]
     [:div#outer
      [:div.container
       [:input#expression {:type "text"
                           :placeholder "Expression"
                           :name "expression"
-                          :value expression
                           :on-input #(re-frame/dispatch
                                       [::events/expression
                                        (-> % .-target .-value)])

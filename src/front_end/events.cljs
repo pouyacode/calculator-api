@@ -25,9 +25,9 @@
 
 ;;; Update user's input in `db`.
 (re-frame/reg-event-fx
- ::input
- (fn [{:keys [db]} [_ input]]
-   {:db (assoc db :input input)}))
+ ::expression
+ (fn [{:keys [db]} [_ expression]]
+   {:db (assoc db :expression expression)}))
 
 
 ;;; Send `POST` request to server and retrieve the result of calculation.
