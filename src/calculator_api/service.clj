@@ -27,9 +27,10 @@
                          [:title "Calculator API"]
                          [:meta {:name "description" :content "Basic arithmetic calculator, using Antlr4."}]
                          [:meta {:name "viewport" :content "width=device-width,minimum-scale=1,initial-scale=1"}]
-                         [:link {:rel "stylesheet" :href "/style/dark.min.css"}]
-                         [:script {:src "/script/main.js" :defer "true"}]
-                         [:script {:src "/script/highlight.min.js" :defer "true"}]
+                         [:link {:rel "stylesheet" :href "/vendor/css/style.min.css?v0"}]
+                         [:link {:rel "stylesheet" :href "/vendor/css/highlight.min.css?v0"}]
+                         [:script {:src "/js/compiled/app.js?v0" :defer "true"}]
+                         [:script {:src "/js/highlight.min.js?v0" :defer "true"}]
                          [:link {:rel "icon" :type "image/svg+xml" :href "/favicon.svg"}]
                          [:meta {:property "og:locale" :content "en_GB"}]
                          [:meta {:property "og:type" :content "website"}]
@@ -39,24 +40,14 @@
                          [:meta {:property "og:image" :content "https://ardoq.pouyacode.net/calculator.png"}]
                          [:meta {:property "og:site_name" :content "Calculator API"}]]
                         [:body
-                         [:div#outer
-                          [:div.container
-                           [:input#expression {:type "text"
-                                               :placeholder "Expression"
-                                               :name "expression"
-                                               :value "-1 * (2 * 6 / 3)"}]
-                           [:input#calculate {:type "submit"
-                                              :value "Calculate"}]
-                           [:input#history {:type "submit"
-                                            :value "History"}]
-                           [:input#debug {:type "submit"
-                                          :value "Debug"}]]
-                          [:div#inner
-                           [:pre
-                            [:code#result {:class "language-json"}]]]]
-                         [:pre#description "For more information, May The "
-                          [:a {:href "/docs" :target "_blank"} "Source"]
-                          " Be With You!"]]])))
+                         [:div#app
+                          [:noscript
+                           [:div.noscript]
+                           [:pre#description "It's a JS app, Please enable JavaScript to continue."
+                            [:br]
+                            "For more information, May the "
+                            [:a {:href "/docs" :target "_blank"} "Source"]
+                            "Be With You!"]]]]])))
 
 
 (defn docs
@@ -69,17 +60,20 @@
   [_]
   (ring-resp/response (slurp (clojure.java.io/resource "uberdoc.html"))))
 
+
 (defn de-json
   "Extracts `json` part of the request. Returns `nil` if `content-type` isn't
   set properly or `json-params` doesn't exist in request body, or there's no
   `expression` key in the JSON."
   [request]
-  (if (= "application/json; charset=UTF-8" ((:headers request) "content-type"))
-    (if-let [json-params (:json-params request)]
-      (-> json-params
-          (json/read-str :key-fn #(keyword %))
-          :expression))
-    nil))
+  (let [content-type ((:headers request) "content-type")]
+    (if (or (= "application/json; charset=UTF-8" content-type)
+            (= "application/json" content-type))
+      (if-let [json-params (:json-params request)]
+        (-> json-params
+            (json/read-str :key-fn #(keyword %))
+            :expression))
+      nil)))
 
 
 (defn calc

@@ -1,0 +1,5 @@
+/* Modified version of:
+Dark style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+https://github.com/highlightjs/highlight.js/blob/main/src/styles/dark.css */
+
+.hljs{color:#ddd;background:transparent}.hljs-keyword,.hljs-link,.hljs-literal,.hljs-section,.hljs-selector-tag{color:white}.hljs-subst{}.hljs-addition,.hljs-attr,.hljs-attribute,.hljs-built_in,.hljs-bullet,.hljs-name,.hljs-string,.hljs-symbol,.hljs-template-tag,.hljs-template-variable,.hljs-title,.hljs-type{color:#c6c218}.hljs-string{color:#f6f}.hljs-comment,.hljs-deletion,.hljs-meta,.hljs-quote{color:#777}.hljs-doctag,.hljs-keyword,.hljs-literal,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-strong,.hljs-title,.hljs-type{font-weight:bold}.hljs-emphasis{font-style:italic}

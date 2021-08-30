@@ -24,8 +24,19 @@
   ;; If you use HTTP/2 or ALPN, use the java-agent to pull in the correct alpn-boot dependency
   ;:java-agents [[org.mortbay.jetty.alpn/jetty-alpn-agent "2.0.5"]]
   :profiles {:dev {:aliases {"run-dev" ["trampoline" "run" "-m" "calculator-api.server/run-dev"]}
-                   :dependencies [[io.pedestal/pedestal.service-tools "0.5.9"]]}
+                   :dependencies [[io.pedestal/pedestal.service-tools "0.5.9"]]
+                   :plugins [[lein-shell "0.5.0"]]}
              :uberjar {:aot [calculator-api.server]}}
   :plugins [[lein-marginalia "0.9.1"]]
   :main ^{:skip-aot true} calculator-api.server
-  :java-source-paths ["src/java"])
+  :java-source-paths ["src/java"]
+  :aliases
+  {"sass" ["shell"
+           "sass" "src/sass/style.sass:resources/public/vendor/css/style.min.css"
+           "--style=compressed"]
+   "sass-watch" ["shell"
+                 "sass" "src/sass/style.sass:resources/public/vendor/css/style.min.css"
+                 "--style=compressed"
+                 "--watch"]
+   "front-end" ["shell"
+               "npm" "run" "release"]})

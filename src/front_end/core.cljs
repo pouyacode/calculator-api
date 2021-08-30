@@ -6,7 +6,7 @@
    [front-end.routes :as routes]
    [front-end.views :as views]
    [front-end.config :as config]
-   ))
+   [day8.re-frame.http-fx]))
 
 
 (defn dev-setup []

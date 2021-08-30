@@ -1,4 +1,4 @@
-(ns front-end.styles
+#_(ns front-end.styles
   (:require-macros
     [garden.def :refer [defcssfn]])
   (:require
@@ -6,23 +6,21 @@
     [garden.units :refer [deg px]]
     [garden.color :refer [rgba]]))
 
-(defcssfn linear-gradient
- ([c1 p1 c2 p2]
-  [[c1 p1] [c2 p2]])
- ([dir c1 p1 c2 p2]
-  [dir [c1 p1] [c2 p2]]))
 
-(defglobal defaults
+#_(defglobal defaults
   [:body
-   {:color               :red
-    :background-color    :#ddd
-    :background-image    [(linear-gradient :white (px 2) :transparent (px 2))
-                          (linear-gradient (deg 90) :white (px 2) :transparent (px 2))
-                          (linear-gradient (rgba 255 255 255 0.3) (px 1) :transparent (px 1))
-                          (linear-gradient (deg 90) (rgba 255 255 255 0.3) (px 1) :transparent (px 1))]
-    :background-size     [[(px 100) (px 100)] [(px 100) (px 100)] [(px 20) (px 20)] [(px 20) (px 20)]]
-    :background-position [[(px -2) (px -2)] [(px -2) (px -2)] [(px -1) (px -1)] [(px -1) (px -1)]]}])
+   {:color :#ddd
+    :background-color :#222
+    :font-size "1.5vh"
+    :font-family ["Ubuntu" "Arial" "Helvetica" "sans-serif"]}])
 
-(defclass level1
+#_(defid outer
+  {:margin "20vh auto"
+   :width "50vw"
+   :padding "1.5vh"
+   :background (rgba 136 51 187)})
+
+#_(defclass level1
   []
   {:color :green})
+
