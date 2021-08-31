@@ -166,11 +166,10 @@
                                       "https://ardoq.pouyacode.net"]
               ::http/secure-headers {:content-security-policy-settings
                                      {:object-src "'none'"
-                                      :script-src "'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https: http:"
+                                      ;; :script-src "'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https: http:"
                                       :frame-ancestors "'none'"}}
               ::http/resource-path "/public" ; resources/public/...
               ::http/join?  false
-              ::http/secure-headers {:content-security-policy-settings {:object-src "none"}}
               ::http/type :jetty
               ::http/host "localhost"
               ::http/port 8080
