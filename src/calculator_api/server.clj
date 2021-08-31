@@ -22,9 +22,11 @@
               ;;  we can use this to set the routes to be reloadable
               ::server/routes #(route/expand-routes (deref #'service/routes))
               ;; all origins are allowed in dev mode
-              ::server/allowed-origins {:creds true :allowed-origins (constantly true)}
+              ::server/allowed-origins {:creds true
+                                        :allowed-origins (constantly true)}
               ;; Content Security Policy (CSP) is mostly turned off in dev mode
-              ::server/secure-headers {:content-security-policy-settings {:object-src "'none'"}}})
+              ::server/secure-headers {:content-security-policy-settings
+                                       {:object-src "'none'"}}})
       ;; Wire up interceptor chains
       server/default-interceptors
       server/dev-interceptors
@@ -41,23 +43,3 @@
 
 ;; Run development server
 #_(def dev-serv (run-dev))
-
-;; If you package the service up as a WAR,
-;; some form of the following function sections is required (for io.pedestal.servlet.ClojureVarServlet).
-
-;;(defonce servlet  (atom nil))
-;;
-;;(defn servlet-init
-;;  [_ config]
-;;  ;; Initialize your app here.
-;;  (reset! servlet  (server/servlet-init service/service nil)))
-;;
-;;(defn servlet-service
-;;  [_ request response]
-;;  (server/servlet-service @servlet request response))
-;;
-;;(defn servlet-destroy
-;;  [_]
-;;  (server/servlet-destroy @servlet)
-;;  (reset! servlet nil))
-

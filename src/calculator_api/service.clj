@@ -25,20 +25,35 @@
                         [:head
                          [:meta {:charset "utf-8"}]
                          [:title "Calculator API"]
-                         [:meta {:name "description" :content "Basic arithmetic calculator, using Antlr4."}]
-                         [:meta {:name "viewport" :content "width=device-width,minimum-scale=1,initial-scale=1"}]
-                         [:link {:rel "stylesheet" :href "/vendor/css/style.min.css?v0"}]
-                         [:link {:rel "stylesheet" :href "/vendor/css/highlight.min.css?v0"}]
-                         [:script {:src "/js/compiled/app.js?v0" :defer "true"}]
-                         [:script {:src "/js/highlight.min.js?v0" :defer "true"}]
-                         [:link {:rel "icon" :type "image/svg+xml" :href "/favicon.svg"}]
-                         [:meta {:property "og:locale" :content "en_GB"}]
-                         [:meta {:property "og:type" :content "website"}]
-                         [:meta {:property "og:title" :content "Calculator API"}]
-                         [:meta {:property "og:description" :content "Calculator RESTful API, written in clojure, using Antlr4 parser generator."}]
-                         [:meta {:property "og:url" :content "https://ardoq.pouyacode.net"}]
-                         [:meta {:property "og:image" :content "https://ardoq.pouyacode.net/calculator.png"}]
-                         [:meta {:property "og:site_name" :content "Calculator API"}]]
+                         [:meta {:name "description"
+                                 :content "Basic arithmetic calculator, using Antlr4."}]
+                         [:meta {:name "viewport"
+                                 :content "width=device-width,minimum-scale=1,initial-scale=1"}]
+                         [:link {:rel "stylesheet"
+                                 :href "/vendor/css/style.min.css?v0"}]
+                         [:link {:rel "stylesheet"
+                                 :href "/vendor/css/highlight.min.css?v0"}]
+                         [:script {:src "/js/compiled/app.js?v0"
+                                   :defer "true"}]
+                         [:script {:src "/js/highlight.min.js?v0"
+                                   :defer "true"}]
+                         [:link {:rel "icon"
+                                 :type "image/svg+xml"
+                                 :href "/favicon.svg"}]
+                         [:meta {:property "og:locale"
+                                 :content "en_GB"}]
+                         [:meta {:property "og:type"
+                                 :content "website"}]
+                         [:meta {:property "og:title"
+                                 :content "Calculator API"}]
+                         [:meta {:property "og:description"
+                                 :content "Calculator RESTful API, written in clojure, using Antlr4 parser generator."}]
+                         [:meta {:property "og:url"
+                                 :content "https://ardoq.pouyacode.net"}]
+                         [:meta {:property "og:image"
+                                 :content "https://ardoq.pouyacode.net/calculator.png"}]
+                         [:meta {:property "og:site_name"
+                                 :content "Calculator API"}]]
                         [:body
                          [:div#app
                           [:noscript
@@ -146,51 +161,23 @@
 ;; Consumed by calculator-api.server/create-server
 ;; See http/default-interceptors for additional options you can configure
 (def service {:env :prod
-              ;; You can bring your own non-default interceptors. Make
-              ;; sure you include routing and set it up right for
-              ;; dev-mode. If you do, many other keys for configuring
-              ;; default interceptors will be ignored.
-              ;; ::http/interceptors []
               ::http/routes routes
-
-              ;; Uncomment next line to enable CORS support, add
-              ;; string(s) specifying scheme, host and port for
-              ;; allowed source(s):
-              ;;
-              ;; "http://localhost:8080"
-              ;;
-              ;;::http/allowed-origins ["scheme://host:port"]
               ::http/allowed-origins ["http://localhost:8080"
                                       "https://ardoq.pouyacode.net"]
-
-              ;; Tune the Secure Headers
-              ;; and specifically the Content Security Policy appropriate to your service/application
-              ;; For more information, see: https://content-security-policy.com/
-              ;;   See also: https://github.com/pedestal/pedestal/issues/499
-              ;;::http/secure-headers {:content-security-policy-settings {:object-src "'none'"
-              ;;                                                          :script-src "'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https: http:"
-              ;;                                                          :frame-ancestors "'none'"}}
-
-              ;; Root for resource interceptor that is available by default.
+              ::http/secure-headers {:content-security-policy-settings
+                                     {:object-src "'none'"
+                                      :script-src "'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https: http:"
+                                      :frame-ancestors "'none'"}}
               ::http/resource-path "/public" ; resources/public/...
-
               ::http/join?  false
               ::http/secure-headers {:content-security-policy-settings {:object-src "none"}}
-              
-              ;; Either :jetty, :immutant or :tomcat (see comments in project.clj)
-              ;;  This can also be your own chain provider/server-fn -- http://pedestal.io/reference/architecture-overview#_chain_provider
               ::http/type :jetty
-              ;;::http/host "localhost"
-              ::http/host "0.0.0.0"
+              ::http/host "localhost"
               ::http/port 8080
-              ;; Options to pass to the container (Jetty)
               ::http/container-options {:h2c? true
                                         :h2? false
                                         ;:keystore "test/hp/keystore.jks"
                                         ;:key-password "password"
                                         ;:ssl-port 8443
                                         :ssl? false
-                                        ;; Alternatively, You can specify you're own Jetty HTTPConfiguration
-                                        ;; via the `:io.pedestal.http.jetty/http-configuration` container option.
-                                        ;:io.pedestal.http.jetty/http-configuration (org.eclipse.jetty.server.HttpConfiguration.)
                                         }})
