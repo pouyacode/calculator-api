@@ -49,9 +49,9 @@
                          [:meta {:property "og:description"
                                  :content "Calculator RESTful API, written in clojure, using Antlr4 parser generator."}]
                          [:meta {:property "og:url"
-                                 :content "https://ardoq.pouyacode.net"}]
+                                 :content "https://calc.pouyacode.net"}]
                          [:meta {:property "og:image"
-                                 :content "https://ardoq.pouyacode.net/calculator.png"}]
+                                 :content "https://calc.pouyacode.net/calculator.png"}]
                          [:meta {:property "og:site_name"
                                  :content "Calculator API"}]]
                         [:body
@@ -163,7 +163,7 @@
 (def service {:env :prod
               ::http/routes routes
               ::http/allowed-origins ["http://localhost:8080"
-                                      "https://ardoq.pouyacode.net"]
+                                      "https://calc.pouyacode.net"]
               ::http/secure-headers {:content-security-policy-settings
                                      {:object-src "'none'"
                                       ;; :script-src "'unsafe-inline' 'unsafe-eval' 'strict-dynamic' https: http:"

@@ -1,6 +1,6 @@
 (defproject calculator-api "0.0.1-SNAPSHOT"
   :description "Calculator RESTful API, written in clojure, using Antlr4 parser generator."
-  :url "https://ardoq.pouyacode.net"
+  :url "https://github.com/pouyacode/calculator-api"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.10.1"]
