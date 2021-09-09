@@ -1,11 +1,3 @@
-# Project related
-
-# Java related
-pom.xml
-pom.xml.asc
-*jar
-*.class
-
 # Leiningen
 classes/
 lib/
@@ -16,6 +8,23 @@ target/
 repl-port
 .nrepl-port
 .repl
+
+# Back-End
+pom.xml
+pom.xml.asc
+*jar
+*.class
+
+# Front-End
+resources/public/js/compiled/
+front-end/*-init.clj
+front-end/*.log
+node_modules/
+.shadow-cljs/
+
+# Sass
+resources/public/vendor/css/style.min.css
+resources/public/vendor/css/style.min.css.map
 
 # Temp Files
 *.orig
@@ -45,13 +54,5 @@ src/java/grammar/expr/*.class
 # Docs
 docs
 
-# front-end
-resources/public/js/compiled/
-front-end/*-init.clj
-front-end/*.log
-node_modules/
-.shadow-cljs/
-
-# sass
-resources/public/vendor/css/style.min.css
-resources/public/vendor/css/style.min.css.map
+# Deploy
+.fandogh
