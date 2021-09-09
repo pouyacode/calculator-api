@@ -171,7 +171,7 @@
               ::http/resource-path "/public" ; resources/public/...
               ::http/join?  false
               ::http/type :jetty
-              ::http/host "localhost"
+              ::http/host "0.0.0.0"
               ::http/port 8080
               ::http/container-options {:h2c? true
                                         :h2? false
