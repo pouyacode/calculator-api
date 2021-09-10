@@ -2,7 +2,7 @@
   :description "Calculator RESTful API, written in clojure, using Antlr4 parser generator."
   :url "https://github.com/pouyacode/calculator-api"
   :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+            :url "http://www.eclipse.org/legal/epl-v20.html"}
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [io.pedestal/pedestal.service "0.5.9"]
 
