@@ -49,10 +49,17 @@
       {:style {:display loading}}]]))
 
 
+(defn fork-me []
+  [:div#fork
+   [:a {:href "https://github.com/pouyacode/calculator-api" :target "_blank"}
+    "Fork me on GitHub!"]])
+
+
 (defn home-panel []
   [:div
    [home-title]
-   [link-to-docs]])
+   [link-to-docs]
+   [fork-me]])
 
 
 (defmethod routes/panels :home-panel [] [home-panel])

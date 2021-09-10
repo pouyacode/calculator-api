@@ -65,12 +65,27 @@ body
   border-top: 0.5vh solid #83b
   animation: loading 1s cubic-bezier(.68,-0.55,.27,1.55) infinite
 
+#fork
+  position: fixed
+  top: 0vh
+  right: 0vh
+  padding: 2vh 0vh
+  margin: 4vh -11vh
+  background: #83b
+  background: linear-gradient(293deg, rgba(136,51,187,0.5) 0%, rgba(194,12,32,0.5) 50%, rgba(136,51,187,0.5) 100%)
+  transform: rotate(45deg)
+  a
+    padding: 1vh 12vh
+    border: 0.1vh dashed white
+    border-left: 0px
+    border-right: 0px
+    border-radius: 0
+
 @keyframes loading
   from
     transform: rotate(0deg)
   to
     transform: rotate(360deg)
-
 
 .container
   display: flex
