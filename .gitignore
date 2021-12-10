@@ -33,6 +33,8 @@ resources/public/vendor/css/style.min.css.map
 .*.swo
 *.tmp
 *.bak
+*#
+.#*
 
 # OS X
 .DS_Store

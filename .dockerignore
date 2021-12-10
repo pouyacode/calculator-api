@@ -1,20 +1,5 @@
-# comment
-.*
-Capstanfile
-*.md
-*.log
-*.js
-*.json
-*.edn
-*.clj
-config
-dev
-docs
-logs
-node_modules
-resources
-src
-test
-target/classes/*
-target/stale/*
-target/calculator-api-*-SNAPSHOT.jar
+# ignore everything
+**
+
+# except this
+!target/*standalone.jar

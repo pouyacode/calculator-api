@@ -1,30 +1,22 @@
 ;;; This namespace contains code to generate `parser` and through it, parse the
 ;;; provided math expression. Then we'll turn `infix` notations to `prefix` and
 ;;; just `eval` the result.
-;;; 
+;;;
 ;;; Calling `eval` function is pretty safe, since we validate user's input and
 ;;; also trust `antlr4` to return non-evil result.
 (ns calculator-api.calculator
   (:require [clojure.spec.alpha :as spec]
             [clojure.edn :only read-string]
-            [clojure.core :only eval])
+            [clojure.core :only eval]
+            [calculator-api.database :as database])
   (:import [org.antlr.v4.runtime ANTLRInputStream CommonTokenStream]
            [java.io FileInputStream]
            [grammar.expr ExprLexer ExprParser]))
 
 
-;;; We use an atom to keep track of evaluated expressions. It could've been some
-;;; SQL Database, but IMHO it'd add complexity to this project. My focus is to
-;;; parse mathematical expressions.
-;;; There's no specific function to work with this atom, we just `swap!` it once
-;;; in `calc` function and `deref` once in `calculator-api.service/hist`
-;;; function.
-(def history (atom {}))
-
-
 ;;; A rather strict `spec` validator that only allows `digits`, `parenthesis`,
 ;;; basic mathematical operations and of course "white-space".
-;;; 
+;;;
 ;;; It doesn't allow expressions that start with `*`, `/`, `+`.
 (spec/def ::valid-expression #(re-matches #"(?=[^+*/])[+\-*/\d() Ee.]+" %))
 
@@ -123,7 +115,7 @@
   "After validating input, create the Antlr4 `parser` and parse it to make a
   `tree`. Read the string output of Antlr4, get rid of unwanted pieces of
   information and return the result. Result will be a list (`seq`).
-  
+
   Returns `nil` if input is not valid."
   [expression]
   (if (valid? expression)
@@ -131,7 +123,6 @@
           tree (.prog pars)]
       (-> tree
           (.toStringTree pars)
-          read-string
           (clojure.string/replace #"prog|expr" "")
           read-string))
     nil))
@@ -160,7 +151,7 @@
                       inline
                       eval
                       (#(if % (ratio %))))]
-    (do (swap! history conj {expression  result})
+    (do (database/insert expression result)
         {:result result})
     {:error "not valid"}))
 

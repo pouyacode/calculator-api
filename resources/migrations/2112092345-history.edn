@@ -1,0 +1,4 @@
+;; resources/migrations/001-foo.edn
+{:up   ["CREATE TABLE history (id serial PRIMARY KEY, expression text, result text);"
+        "INSERT INTO history (expression, result) VALUES ('-1*(2*6/3)', '-4');"]
+ :down ["DROP TABLE history;"]}

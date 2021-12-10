@@ -38,6 +38,7 @@
   "The entry-point for 'lein run'"
   [& args]
   (println "\nCreating your server...")
+  (health-check)
   (server/start runnable-service))
 
 

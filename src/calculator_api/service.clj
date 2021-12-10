@@ -5,7 +5,8 @@
             [ring.util.response :as ring-resp]
             [hiccup.core :as h]
             [clojure.data.json :as json]
-            [calculator-api.calculator :as calculator]))
+            [calculator-api.calculator :as calculator]
+            [calculator-api.database :as database]))
 
 
 (defn home-page
@@ -69,7 +70,7 @@
   "Load the document generated via `marginalia`
   https://github.com/gdeer81/marginalia. And serve it in /docs. It looks like
   Literate Programming!
-  
+
   Use `lein marg` to update the documents whenever
   you changed some code or comment."
   [_]
@@ -112,8 +113,7 @@
   I didn't create a way to erase or otherwise manipulate history, I didn't think
   it's necessary."
   [_]
-  (-> calculator/history
-      deref
+  (-> (database/history)
       json/write-str
       ring-resp/response))
 

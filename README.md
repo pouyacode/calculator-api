@@ -64,6 +64,21 @@ grun Expr prog -tree <file-with-expressions> # Text-based
 If you don't supply any file, you can type your expression directly, then press `ctrl+d` to get the result.
 
 
+## Database
+This version, uses a pgSQL database.
+You can run config it on your localhost, or une docker:
+```
+docker run \
+--rm -it \
+-p 5432:5432 \
+--volume postgres-data:/var/lib/postgresql/data \
+--name postgres \
+-e POSTGRES_USER=thedbuser \
+-e POSTGRES_DB=thedbitself \
+-e POSTGRES_PASSWORD=thedbpassword \
+postgres:11.3
+```
+
 ### Sass
 Install Sass preprocessor:
 ```
@@ -99,6 +114,7 @@ Release compile:
 ```
 npm run release
 ```
+For more information about front-end, check [FRONTEND.md](/FRONTEND.md)
 
 
 ### Run the program in development environment
