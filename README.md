@@ -33,14 +33,16 @@ Otherwise, you need to [setup the development environment](#develop).
 ### Install Antlr4
 We need to install [antlr-4.9.2](https://www.antlr.org) to compile Grammer and generate parser.
 ```
-$ cd /usr/local/lib
+$ cd /opt
 $ sudo mkdir antlr4
 $ sudo chown <username>:<username> antlr4
 $ cd antlr4
-$ sudo curl -O https://www.antlr.org/download/antlr-4.9.2-complete.jar
+# Get latest version from https://www.antlr.org/download.html
+$ sudo curl -O https://www.antlr.org/download/antlr-X.X.X-complete.jar
 
-$ export CLASSPATH=".:/usr/local/lib/antlr4/antlr-4.9.2-complete.jar:$CLASSPATH"
-$ alias antlr4='java -jar /usr/local/lib/antlr-4.9.2-complete.jar'
+# Add these to .bashrc or similar location.
+$ export CLASSPATH=".:/usr/local/lib/antlr4/antlr-X.X.X-complete.jar:$CLASSPATH"
+$ alias antlr4='java -jar /usr/local/lib/antlr-X.X.X-complete.jar'
 $ alias grun='java org.antlr.v4.gui.TestRig'
 ```
 
@@ -63,21 +65,6 @@ grun Expr prog -tree <file-with-expressions> # Text-based
 ```
 If you don't supply any file, you can type your expression directly, then press `ctrl+d` to get the result.
 
-
-## Database
-This version, uses a pgSQL database.
-You can run config it on your localhost, or une docker:
-```
-docker run \
---rm -it \
--p 5432:5432 \
---volume postgres-data:/var/lib/postgresql/data \
---name postgres \
--e POSTGRES_USER=thedbuser \
--e POSTGRES_DB=thedbitself \
--e POSTGRES_PASSWORD=thedbpassword \
-postgres:11.3
-```
 
 ### Sass
 Install Sass preprocessor:

@@ -18,10 +18,7 @@
                  [org.slf4j/log4j-over-slf4j "1.7.26"]
                  [org.clojure/data.json "2.4.0"]
                  [hiccup "1.0.5"]
-                 [org.antlr/antlr4 "4.9.2"]
-                 [org.clojure/java.jdbc           "0.7.12"]
-                 [org.postgresql/postgresql       "42.2.5"]
-                 [dev.weavejester/ragtime "0.9.0"]]
+                 [org.antlr/antlr4 "4.12.0"]]
   :min-lein-version "2.0.0"
   :resource-paths ["config", "resources", "docs"]
   ;; If you use HTTP/2 or ALPN, use the java-agent to pull in the correct alpn-boot dependency
