@@ -5,14 +5,15 @@
 ;;; Calling `eval` function is pretty safe, since we validate user's input and
 ;;; also trust `antlr4` to return non-evil result.
 (ns calculator-api.calculator
-  (:require [clojure.spec.alpha :as spec]
-            [clojure.edn :only read-string]
-            [clojure.core :only eval]
-            [calculator-api.database :as database])
-  (:import [org.antlr.v4.runtime ANTLRInputStream CommonTokenStream]
-           [java.io FileInputStream]
-           [grammar.expr ExprLexer ExprParser]))
-
+  (:require
+   [calculator-api.database :as database]
+   [clojure.core :only eval]
+   [clojure.edn :only read-string]
+   [clojure.spec.alpha :as spec]
+   [clojure.string :as string])
+  (:import
+   [grammar.expr ExprLexer ExprParser]
+   [org.antlr.v4.runtime ANTLRInputStream CommonTokenStream]))
 
 ;;; A rather strict `spec` validator that only allows `digits`, `parenthesis`,
 ;;; basic mathematical operations and of course "white-space".
@@ -20,14 +21,12 @@
 ;;; It doesn't allow expressions that start with `*`, `/`, `+`.
 (spec/def ::valid-expression #(re-matches #"(?=[^+*/])[+\-*/\d() Ee.]+" %))
 
-
 (defn valid?
   "Simple regex validator that only lets digits and basic operations pass.
   Also checks for expression length, just 50 or fewer characters can pass."
   [expression]
   (and (> 51 (count expression))
        (spec/valid? ::valid-expression expression)))
-
 
 (defn parser
   "Helper function to create `antlr4` parser.
@@ -50,7 +49,6 @@
       CommonTokenStream.
       ExprParser.))
 
-
 ;;; We call this function before we declare it.
 ;;;
 ;;; `clean-arg`, `apply-arg` and `inline` are interconnected tightly.
@@ -62,7 +60,6 @@
 ;;;
 ;;; > "Code never lies, comments sometimes do." - Ron Jeffries
 (declare inline)
-
 
 (defn clean-arg
   "If provided with a list, it'd call `inline` function, otherwise
@@ -76,7 +73,6 @@
     (inline arg)
     arg))
 
-
 (defn apply-arg
   "Turn `(x (+ y)), into `(+ a b)` with some help from `clean-arg` function.
 
@@ -87,7 +83,6 @@
   `inline` function for more information."
   [arg1 [op arg]]
   (list op arg1 (clean-arg arg)))
-
 
 (defn inline
   "The main part of our tree parser! Calls `clean-arg` and `apply-arg` on every
@@ -110,7 +105,6 @@
     (let [ops (partition 2 ops-and-args)]
       (reduce apply-arg (clean-arg arg1) ops))))
 
-
 (defn prepare
   "After validating input, create the Antlr4 `parser` and parse it to make a
   `tree`. Read the string output of Antlr4, get rid of unwanted pieces of
@@ -123,10 +117,9 @@
           tree (.prog pars)]
       (-> tree
           (.toStringTree pars)
-          (clojure.string/replace #"prog|expr" "")
+          (string/replace #"prog|expr" "")
           read-string))
     nil))
-
 
 (defn ratio
   "If it's a ratio, convert to `double`, then convert to `str` for JSON.
@@ -135,7 +128,6 @@
   (if (ratio? num)
     (str (double num))
     (str num)))
-
 
 (defn calc
   "If `prepare` returns a value (other than `nil`) pass it through `inline`
@@ -150,11 +142,10 @@
                       prepare
                       inline
                       eval
-                      (#(if % (ratio %))))]
+                      (#(when % (ratio %))))]
     (do (database/insert expression result)
         {:result result})
     {:error "not valid"}))
-
 
 (defn dbug
   "A less advanced version of `calc` function. It doesn't `eval` anything, just

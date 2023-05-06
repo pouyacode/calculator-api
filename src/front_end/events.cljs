@@ -4,31 +4,26 @@
    [front-end.db :as db]
    [ajax.core :as ajax]))
 
-
 (re-frame/reg-event-db
  ::initialize-db
  (fn [_ _]
    db/default-db))
-
 
 (re-frame/reg-event-fx
  ::navigate
  (fn [_ [_ handler]]
    {:navigate handler}))
 
-
 (re-frame/reg-event-fx
  ::set-active-panel
  (fn [{:keys [db]} [_ active-panel]]
    {:db (assoc db :active-panel active-panel)}))
-
 
 ;;; Update user's input in `db`.
 (re-frame/reg-event-fx
  ::expression
  (fn [{:keys [db]} [_ expression]]
    {:db (assoc db :expression expression)}))
-
 
 ;;; Send `POST` request to server and retrieve the result of calculation.
 (re-frame/reg-event-fx
@@ -44,7 +39,6 @@
                  :on-success [::good-post-result]
                  :on-failure [::bad-post-result]}}))
 
-
 ;;; Send `POST` request to retrieve the history of successful calculations.
 (re-frame/reg-event-fx
  ::hist
@@ -57,7 +51,6 @@
                  :response-format (ajax/json-response-format)
                  :on-success [::good-post-result]
                  :on-failure [::bad-post-result]}}))
-
 
 ;;; Send `POST` request to retrieve the debug info of calulation.
 (re-frame/reg-event-fx
@@ -73,7 +66,6 @@
                  :on-success [::good-post-result]
                  :on-failure [::bad-post-result]}}))
 
-
 ;;; Put the result from server, into `db`
 (re-frame/reg-event-fx
  ::good-post-result
@@ -81,7 +73,6 @@
    {:db (-> db
             (assoc :loading "none")
             (assoc :result (js/JSON.stringify (clj->js value) nil 2)))}))
-
 
 ;;; Call `::calc` if user press `Enter` on the `input` element.
 (re-frame/reg-event-fx

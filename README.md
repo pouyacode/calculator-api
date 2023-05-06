@@ -91,6 +91,11 @@ sass --style=compressed src/sass/style.sass:resources/public/vendor/css/style.mi
 $ lein marg
 ```
 
+### Format code
+```
+$ lein clj-fmt check # Use `fix` instead of `check` if you're brave enough.
+```
+
 
 ### front-end
 Development (front-end source files are located in `src/front-end`)

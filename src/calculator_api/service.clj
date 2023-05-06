@@ -1,13 +1,13 @@
 (ns calculator-api.service
-  (:require [io.pedestal.http :as http]
-            [io.pedestal.http.route :as route]
-            [io.pedestal.http.body-params :as body-params]
-            [ring.util.response :as ring-resp]
-            [hiccup.core :as h]
-            [clojure.data.json :as json]
-            [calculator-api.calculator :as calculator]
-            [calculator-api.database :as database]))
-
+  (:require
+   [calculator-api.calculator :as calculator]
+   [calculator-api.database :as database]
+   [clojure.data.json :as json]
+   [clojure.java.io :as io]
+   [hiccup.core :as h]
+   [io.pedestal.http :as http]
+   [io.pedestal.http.body-params :as body-params]
+   [ring.util.response :as ring-resp]))
 
 (defn home-page
   "Generate the content of `/` page.
@@ -65,7 +65,6 @@
                             [:a {:href "/docs" :target "_blank"} "Source"]
                             "Be With You!"]]]]])))
 
-
 (defn docs
   "Load the document generated via `marginalia`
   https://github.com/gdeer81/marginalia. And serve it in /docs. It looks like
@@ -74,8 +73,7 @@
   Use `lein marg` to update the documents whenever
   you changed some code or comment."
   [_]
-  (ring-resp/response (slurp (clojure.java.io/resource "uberdoc.html"))))
-
+  (ring-resp/response (slurp (io/resource "uberdoc.html"))))
 
 (defn de-json
   "Extracts `json` part of the request. Returns `nil` if `content-type` isn't
@@ -91,7 +89,6 @@
             :expression))
       nil)))
 
-
 (defn calc
   "Invoke `calculator-api.calculator/calc` to process the math expression.
   Return the response in JSON format, or return an error if the expression does
@@ -106,7 +103,6 @@
         json/write-str
         ring-resp/response)))
 
-
 (defn hist
   "Retrieve the history of calculations from `database` atom, and return it as
   a JSON object.
@@ -116,7 +112,6 @@
   (-> (database/history)
       json/write-str
       ring-resp/response))
-
 
 (defn dbug
   "Roughly same as `calc` function, but uses `calculator-api.calculator/dbug`
@@ -131,12 +126,10 @@
         json/write-str
         ring-resp/response)))
 
-
 ;; Defines "/" and "/about" routes with their associated :get handlers.
 ;; The interceptors defined after the verb map (e.g., {:get home-page}
 ;; apply to / and its children (/docs).
 (def common-interceptors [(body-params/body-params) http/html-body])
-
 
 ;; Tabular routes
 (def routes #{["/" :get (conj common-interceptors `home-page)]
@@ -144,7 +137,6 @@
               ["/dbug" :post (conj common-interceptors `dbug)]
               ["/hist" :post (conj common-interceptors `hist)]
               ["/docs" :get (conj common-interceptors `docs)]})
-
 
 ;; Map-based routes
 ;(def routes `{"/" {:interceptors [(body-params/body-params) http/html-body]
@@ -156,7 +148,6 @@
 ;  `[[["/" {:get home-page}
 ;      ^:interceptors [(body-params/body-params) http/html-body]
 ;      ["/about" {:get about-page}]]]])
-
 
 ;; Consumed by calculator-api.server/create-server
 ;; See http/default-interceptors for additional options you can configure
@@ -178,5 +169,4 @@
                                         ;:keystore "test/hp/keystore.jks"
                                         ;:key-password "password"
                                         ;:ssl-port 8443
-                                        :ssl? false
-                                        }})
+                                        :ssl? false}})

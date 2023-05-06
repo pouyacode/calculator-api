@@ -2,7 +2,6 @@
   (:require [clojure.test :refer :all]
             [calculator-api.database :refer :all]))
 
-
 (deftest database-test
   (is (= (sequential? (history))
          true))

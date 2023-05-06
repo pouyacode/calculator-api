@@ -27,7 +27,8 @@
                    :dependencies [[io.pedestal/pedestal.service-tools "0.5.9"]]
                    :plugins [[lein-shell "0.5.0"]]}
              :uberjar {:aot [calculator-api.server]}}
-  :plugins [[lein-marginalia "0.9.1"]]
+  :plugins [[lein-marginalia "0.9.1"]
+            [lein-cljfmt "0.9.2"]]
   :main ^{:skip-aot true} calculator-api.server
   :java-source-paths ["src/java"]
   :aliases

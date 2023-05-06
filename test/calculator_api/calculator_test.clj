@@ -3,7 +3,6 @@
             [io.pedestal.test :refer :all]
             [calculator-api.calculator :refer :all]))
 
-
 (deftest validator-test
   (is (= (valid? " 1 2 3 4 5 ")
          true))
@@ -21,7 +20,6 @@
          false)))
 
 #_(validator-test)
-
 
 (deftest calculate-test
   (is (=

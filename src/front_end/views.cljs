@@ -35,32 +35,28 @@
                                       #(js/hljs.highlightBlock n) 0)))}
         result]]]]))
 
-
 (defn link-to-docs []
   (let [loading @(re-frame/subscribe [::subs/loading])]
     [:div
      [:pre#description "For more information, May The "
       [:a {:href "/docs" :target "_blank"} "Source"]
       #_[:button.source
-       {:on-click #(re-frame/dispatch [::events/navigate :docs])}
-       "Source"]
+         {:on-click #(re-frame/dispatch [::events/navigate :docs])}
+         "Source"]
       " Be With You!"]
      [:div#loading                      ; Loading animation on bottom-left
       {:style {:display loading}}]]))
-
 
 (defn fork-me []
   [:div#fork
    [:a {:href "https://github.com/pouyacode/calculator-api" :target "_blank"}
     "Fork me on GitHub!"]])
 
-
 (defn home-panel []
   [:div
    [home-title]
    [link-to-docs]
    [fork-me]])
-
 
 (defmethod routes/panels :home-panel [] [home-panel])
 
