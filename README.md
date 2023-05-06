@@ -49,7 +49,7 @@ $ alias grun='java org.antlr.v4.gui.TestRig'
 
 ### Compile Antlr4 Grammar
 ```
-cd src/java/grammer/expr
+cd src/java/grammar/expr
 rm *.java *.tokens *.interp *.class # remove what's left over from testing the grammar
 antlr4 -package grammar.expr -no-listener -visitor Expr.g4
 ```
@@ -57,7 +57,7 @@ antlr4 -package grammar.expr -no-listener -visitor Expr.g4
 
 ### Test Antlr4 Grammar
 ```
-cd src/java/grammer/expr
+cd src/java/grammar/expr
 rm *.java *.tokens *.interp # remove what's left over from compiling the grammar
 antlr4 Expr.g4 && javac *.java
 grun Expr prog -gui <file-with-expressions> # GUI
