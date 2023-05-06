@@ -52,3 +52,7 @@ docs
 
 # Deploy
 .fandogh
+
+# tools
+/.clj-kondo/
+/.lsp/
